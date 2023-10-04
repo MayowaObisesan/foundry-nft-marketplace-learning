@@ -18,29 +18,32 @@ TASK:
 
 - you are to write a test for this contract
 
-you do not need to emit events for the contract since you're time constrained(you can decide to add events if you want your test traces to be more colorful)```
+you do not need to emit events for the contract since you're time constrained(you can decide to add events if you want your test traces to be more colorful)
+```
 
 FUNCTIONALITIES
+
 - Have a counter to keep track of the number of orders created
 - Create an order to sell an ERC721 token
-    - Verify the validity of an order using a signature
+  - Verify the validity of an order using a signature
 - Have a mapping (of uint to the `order` struct) that stores the created orders.
 - Fulfill an order by buying an ERC721 token
 
 METHODS
+
 - createOrder:
-    - Allows a user to create an order to sell an ERC721 token.
-    - The user specifies the token address, token ID, price, signature, and deadline for the order.
-    - The function verifies the validity of the order and stores it in the orders mapping.
+  - Allows a user to create an order to sell an ERC721 token.
+  - The user specifies the token address, token ID, price, signature, and deadline for the order.
+  - The function verifies the validity of the order and stores it in the orders mapping.
 
 - fulfillOrder:
-    - Allows a user to fulfill an order by buying an ERC721 token.
-    - The user specifies the token address and token ID of the order to be fulfilled. - The function verifies the validity of the order, transfers the token from the seller to the buyer, and transfers the payment from the buyer to the seller.
+  - Allows a user to fulfill an order by buying an ERC721 token.
+  - The user specifies the token address and token ID of the order to be fulfilled. - The function verifies the validity of the order, transfers the token from the seller to the buyer, and transfers the payment from the buyer to the seller.
 
 - recoverSigner:
-    - Internal function used to recover the signer of a message given a signature.
-    - It verifies the length of the signature and uses assembly code to extract the r, s, and v values.
-    - It then uses the ecrecover function to recover the signer's address.
+  - Internal function used to recover the signer of a message given a signature.
+  - It verifies the length of the signature and uses assembly code to extract the r, s, and v values.
+  - It then uses the ecrecover function to recover the signer's address.
 
 ## Foundry
 
@@ -48,21 +51,21 @@ METHODS
 
 Foundry consists of:
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
+- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
+- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
+- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
 
 ## Documentation
 
-https://book.getfoundry.sh/
+<https://book.getfoundry.sh/>
 
 ## Usage
 
 ### Build
 
 ```shell
-$ forge build
+forge build
 ```
 
 ### Test
