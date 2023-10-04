@@ -17,6 +17,16 @@ contract MarketplaceTest is Test {
 
     uint256 tokenId;
 
+    struct Order {
+        address owner;
+        address tokenAddress;
+        uint256 tokenId;
+        uint256 price;
+        bytes signature;
+        uint256 deadline;
+        bool active;
+    }
+
     function setUp() public {
         marketplace = new Marketplace();
 
@@ -86,6 +96,14 @@ contract MarketplaceTest is Test {
             deadline
         );
         vm.expectRevert("Invalid signature");
+
+        marketplace.createOrder(
+            tokenAddress,
+            tokenId,
+            price,
+            signature,
+            deadline
+        );
     }
 
     // Create order with valid inputs
@@ -116,8 +134,33 @@ contract MarketplaceTest is Test {
             signature,
             deadline
         );
+        vm.stopPrank();
+    }
 
+    function test_create_order_with_zero_price() public {
+        address user = vm.addr(userPrivateKey);
+        address signer = vm.addr(signerPrivateKey);
+        uint256 price = 1 ether;
+        uint256 deadline = block.timestamp + 3600;
+        address tokenAddress = address(mockNFT);
         uint256 orderId = 1;
+
+        vm.startPrank(signer);
+
+        bytes memory signature = constructSig(
+            tokenAddress,
+            tokenId,
+            price,
+            signer,
+            deadline
+        );
+
+        // Create order with zero price
+        marketplace.createOrder(tokenAddress, tokenId, 0, signature, deadline);
+
+        // Assert that the order was not created
+        Order memory order = marketplace.orders();
+        // assert(order[orderId].active == false);
         vm.stopPrank();
     }
 
